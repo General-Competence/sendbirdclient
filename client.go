@@ -16,9 +16,10 @@ const (
 
 // Client may be used to make requests to Sendbird Platform APIs
 type Client struct {
-	httpClient *http.Client
-	apiKey     string
-	baseURL    string
+	httpClient    *http.Client
+	apiKey        string
+	baseURL       string
+	applicationID string
 }
 
 // ClientOption is the type of constructor options for NewClient(...).
@@ -50,8 +51,9 @@ func WithHTTPClient(c *http.Client) ClientOption {
 }
 
 // WithAPIKey configures a Maps API client with an API Key
-func WithAPIKey(apiKey string) ClientOption {
+func WithAPIKey(applicationID, apiKey string) ClientOption {
 	return func(c *Client) error {
+		c.applicationID = applicationID
 		c.apiKey = apiKey
 		return nil
 	}
@@ -196,7 +198,7 @@ func (c *Client) putAndReturnJSON(config *url.URL, apiReq interface{}, resp inte
 func (c *Client) PrepareUrl(pathEncodedUrl string) *url.URL {
 	urlVal := &url.URL{
 		Scheme:  constScheme,
-		Host:    constHost,
+		Host:    fmt.Sprintf(constHost, c.applicationID),
 		Path:    constVersion + pathEncodedUrl,
 		RawPath: constVersion + pathEncodedUrl,
 	}

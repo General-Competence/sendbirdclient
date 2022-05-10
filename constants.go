@@ -9,7 +9,7 @@ const (
 //Sendbird url prefix
 const (
 	constScheme  = "https"
-	constHost    = "api.sendbird.com"
+	constHost    = "api-%s.sendbird.com"
 	constVersion = "/v3"
 )
 
