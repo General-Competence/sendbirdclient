@@ -331,6 +331,7 @@ func (c *Client) InviteMembersToGroupChannel(channelURL string, r *InviteMembers
 
 type InviteMembersToGroupChannelRequest struct {
 	UserIDs []string `json:"user_ids"`
+	InvitationStatus map[string]string `json:"invitation_status,omitempty"`
 }
 
 func (c *Client) HideFromAGroupChannel(channelURL string, r *HideFromAGroupChannelRequest) (sendbirdErrorResponse, error) {
