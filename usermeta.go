@@ -132,38 +132,38 @@ type UpdateUserMetaDataItemRequest struct {
 	Upsert bool   `json:"upsert,omitempty"`
 }
 
-func (c *Client) DeleteUserMetaData(userID string) (sendbirdErrorResponse, error) {
+func (c *Client) DeleteUserMetaData(userID string) (SendbirdErrorResponse, error) {
 	pathString, err := templates.GetUsersTemplate(userMetaTemplateData{UserID: url.PathEscape(userID)}, templates.SendbirdURLUserMetadataWithUserID)
 	if err != nil {
-		return sendbirdErrorResponse{}, err
+		return SendbirdErrorResponse{}, err
 	}
 
 	parsedURL := c.PrepareUrl(pathString)
-	result := sendbirdErrorResponse{}
+	result := SendbirdErrorResponse{}
 
 	err = c.deleteAndReturnJSON(parsedURL, "", &result)
 	if err != nil {
-		return sendbirdErrorResponse{}, err
+		return SendbirdErrorResponse{}, err
 	}
 
 	return result, nil
 }
 
-func (c *Client) DeleteUserMetaDataItem(userID string, keyName string) (sendbirdErrorResponse, error) {
+func (c *Client) DeleteUserMetaDataItem(userID string, keyName string) (SendbirdErrorResponse, error) {
 	pathString, err := templates.GetUsersTemplate(userMetaTemplateData{
 		UserID:  url.PathEscape(userID),
 		KeyName: url.PathEscape(keyName),
 	}, templates.SendbirdURLUserMetadataWithUserIDandKeyName)
 	if err != nil {
-		return sendbirdErrorResponse{}, err
+		return SendbirdErrorResponse{}, err
 	}
 
 	parsedURL := c.PrepareUrl(pathString)
-	result := sendbirdErrorResponse{}
+	result := SendbirdErrorResponse{}
 
 	err = c.deleteAndReturnJSON(parsedURL, "", &result)
 	if err != nil {
-		return sendbirdErrorResponse{}, err
+		return SendbirdErrorResponse{}, err
 	}
 
 	return result, nil

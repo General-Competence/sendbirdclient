@@ -225,19 +225,19 @@ type ViewAGroupChannelRequest struct {
 	ShowMember      bool `json:"show_member,omitempty"`
 }
 
-func (c *Client) DeleteAGroupChannel(channelURL string) (sendbirdErrorResponse, error) {
+func (c *Client) DeleteAGroupChannel(channelURL string) (SendbirdErrorResponse, error) {
 	pathString, err := templates.GetGroupChannelTemplate(groupChannelsTemplateData{ChannelURL: url.PathEscape(channelURL)}, templates.SendbirdURLGroupChannelsWithChannelURL)
 
 	if err != nil {
-		return sendbirdErrorResponse{}, err
+		return SendbirdErrorResponse{}, err
 	}
 
 	parsedURL := c.PrepareUrl(pathString)
 
-	result := sendbirdErrorResponse{}
+	result := SendbirdErrorResponse{}
 
 	if err := c.deleteAndReturnJSON(parsedURL, "", &result); err != nil {
-		return sendbirdErrorResponse{}, err
+		return SendbirdErrorResponse{}, err
 	}
 
 	return result, nil
@@ -330,23 +330,23 @@ func (c *Client) InviteMembersToGroupChannel(channelURL string, r *InviteMembers
 }
 
 type InviteMembersToGroupChannelRequest struct {
-	UserIDs []string `json:"user_ids"`
+	UserIDs          []string          `json:"user_ids"`
 	InvitationStatus map[string]string `json:"invitation_status,omitempty"`
 }
 
-func (c *Client) HideFromAGroupChannel(channelURL string, r *HideFromAGroupChannelRequest) (sendbirdErrorResponse, error) {
+func (c *Client) HideFromAGroupChannel(channelURL string, r *HideFromAGroupChannelRequest) (SendbirdErrorResponse, error) {
 	pathString, err := templates.GetGroupChannelTemplate(groupChannelsTemplateData{ChannelURL: url.PathEscape(channelURL)}, templates.SendbirdURLGroupChannelsHideWithChannelURL)
 
 	if err != nil {
-		return sendbirdErrorResponse{}, err
+		return SendbirdErrorResponse{}, err
 	}
 
 	parsedURL := c.PrepareUrl(pathString)
 
-	result := sendbirdErrorResponse{}
+	result := SendbirdErrorResponse{}
 
 	if err := c.putAndReturnJSON(parsedURL, r, &result); err != nil {
-		return sendbirdErrorResponse{}, err
+		return SendbirdErrorResponse{}, err
 	}
 
 	return result, nil
@@ -356,19 +356,19 @@ type HideFromAGroupChannelRequest struct {
 	UserID string `json:"user_id"`
 }
 
-func (c *Client) LeaveFromAGroupChannel(channelURL string, r *LeaveFromAGroupChannelRequest) (sendbirdErrorResponse, error) {
+func (c *Client) LeaveFromAGroupChannel(channelURL string, r *LeaveFromAGroupChannelRequest) (SendbirdErrorResponse, error) {
 	pathString, err := templates.GetGroupChannelTemplate(groupChannelsTemplateData{ChannelURL: url.PathEscape(channelURL)}, templates.SendbirdURLGroupChannelsLeaveWithChannelURL)
 
 	if err != nil {
-		return sendbirdErrorResponse{}, err
+		return SendbirdErrorResponse{}, err
 	}
 
 	parsedURL := c.PrepareUrl(pathString)
 
-	result := sendbirdErrorResponse{}
+	result := SendbirdErrorResponse{}
 
 	if err := c.putAndReturnJSON(parsedURL, r, &result); err != nil {
-		return sendbirdErrorResponse{}, err
+		return SendbirdErrorResponse{}, err
 	}
 
 	return result, nil

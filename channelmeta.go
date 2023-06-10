@@ -139,42 +139,42 @@ type UpdateChannelMetaDataByKeyNameRequest struct {
 	Upsert bool   `json:"upsert,omitempty"`
 }
 
-func (c *Client) DeleteChannelMetaData(channelType string, channelURL string) (sendbirdErrorResponse, error) {
+func (c *Client) DeleteChannelMetaData(channelType string, channelURL string) (SendbirdErrorResponse, error) {
 	pathString, err := templates.GetChannelMetadataTemplate(channelMetaTemplateData{
 		ChannelType: url.PathEscape(channelType),
 		ChannelURL:  url.PathEscape(channelURL),
 	}, templates.SendbirdURLChannelMetadataWithChannelTypeAndChannelURL)
 	if err != nil {
-		return sendbirdErrorResponse{}, err
+		return SendbirdErrorResponse{}, err
 	}
 
 	parsedURL := c.PrepareUrl(pathString)
-	result := sendbirdErrorResponse{}
+	result := SendbirdErrorResponse{}
 
 	err = c.deleteAndReturnJSON(parsedURL, "", &result)
 	if err != nil {
-		return sendbirdErrorResponse{}, err
+		return SendbirdErrorResponse{}, err
 	}
 
 	return result, nil
 }
 
-func (c *Client) DeleteChannelMetaDataByKeyName(channelType string, channelURL string, keyName string) (sendbirdErrorResponse, error) {
+func (c *Client) DeleteChannelMetaDataByKeyName(channelType string, channelURL string, keyName string) (SendbirdErrorResponse, error) {
 	pathString, err := templates.GetChannelMetadataTemplate(channelMetaTemplateData{
 		ChannelType: url.PathEscape(channelType),
 		ChannelURL:  url.PathEscape(channelURL),
 		KeyName:     url.PathEscape(keyName),
 	}, templates.SendbirdURLChannelMetadataWithChannelTypeAndChannelURLAndKeyName)
 	if err != nil {
-		return sendbirdErrorResponse{}, err
+		return SendbirdErrorResponse{}, err
 	}
 
 	parsedURL := c.PrepareUrl(pathString)
-	result := sendbirdErrorResponse{}
+	result := SendbirdErrorResponse{}
 
 	err = c.deleteAndReturnJSON(parsedURL, "", &result)
 	if err != nil {
-		return sendbirdErrorResponse{}, err
+		return SendbirdErrorResponse{}, err
 	}
 
 	return result, nil
@@ -300,34 +300,34 @@ type UpdateChannelMetaCounterByKeyNameRequest struct {
 	Upsert bool   `json:"upsert,omitempty"`
 }
 
-func (c *Client) DeleteChannelMetaCounter(channelType string, channelURL string) (sendbirdErrorResponse, error) {
+func (c *Client) DeleteChannelMetaCounter(channelType string, channelURL string) (SendbirdErrorResponse, error) {
 	pathString, err := templates.GetChannelMetadataTemplate(channelMetaTemplateData{
 		ChannelType: url.PathEscape(channelType),
 		ChannelURL:  url.PathEscape(channelURL),
 	}, templates.SendbirdURLChannelMetaCounterWithChannelTypeAndChannelURL)
 
-	result := sendbirdErrorResponse{}
+	result := SendbirdErrorResponse{}
 
 	err = c.deleteAndReturnJSON(c.PrepareUrl(pathString), "", &result)
 	if err != nil {
-		return sendbirdErrorResponse{}, err
+		return SendbirdErrorResponse{}, err
 	}
 
 	return result, nil
 }
 
-func (c *Client) DeleteChannelMetaCounterByKeyName(channelType string, channelURL string, keyName string) (sendbirdErrorResponse, error) {
+func (c *Client) DeleteChannelMetaCounterByKeyName(channelType string, channelURL string, keyName string) (SendbirdErrorResponse, error) {
 	pathString, err := templates.GetChannelMetadataTemplate(channelMetaTemplateData{
 		ChannelType: url.PathEscape(channelType),
 		ChannelURL:  url.PathEscape(channelURL),
 		KeyName:     url.PathEscape(keyName),
 	}, templates.SendbirdURLChannelMetaCounterWithChannelTypeAndChannelURLAndKeyName)
 
-	result := sendbirdErrorResponse{}
+	result := SendbirdErrorResponse{}
 
 	err = c.deleteAndReturnJSON(c.PrepareUrl(pathString), "", &result)
 	if err != nil {
-		return sendbirdErrorResponse{}, err
+		return SendbirdErrorResponse{}, err
 	}
 
 	return result, nil

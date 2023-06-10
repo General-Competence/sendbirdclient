@@ -168,18 +168,18 @@ func (c *Client) ViewAUser(userID string) (User, error) {
 	return result, nil
 }
 
-func (c *Client) DeleteAUser(userID string) (sendbirdErrorResponse, error) {
+func (c *Client) DeleteAUser(userID string) (SendbirdErrorResponse, error) {
 	pathString, err := templates.GetUsersTemplate(usersTemplateData{UserID: url.PathEscape(userID)}, templates.SendbirdURLUserswithUserID)
 	if err != nil {
-		return sendbirdErrorResponse{}, err
+		return SendbirdErrorResponse{}, err
 	}
 
 	parsedURL := c.PrepareUrl(pathString)
-	result := sendbirdErrorResponse{}
+	result := SendbirdErrorResponse{}
 
 	err = c.deleteAndReturnJSON(parsedURL, "", &result)
 	if err != nil {
-		return sendbirdErrorResponse{}, err
+		return SendbirdErrorResponse{}, err
 	}
 
 	return result, nil
@@ -268,21 +268,21 @@ type ListBlockUsersResponse struct {
 	Next  string `json:"next"`
 }
 
-func (c *Client) UnblockAUser(userID string, targetID string) (sendbirdErrorResponse, error) {
+func (c *Client) UnblockAUser(userID string, targetID string) (SendbirdErrorResponse, error) {
 	pathString, err := templates.GetUsersTemplate(usersTemplateData{
 		UserID:   url.PathEscape(userID),
 		TargetID: url.PathEscape(targetID),
 	}, templates.SendbirdURLUsersBlockWithUserIDandTargetID)
 	if err != nil {
-		return sendbirdErrorResponse{}, err
+		return SendbirdErrorResponse{}, err
 	}
 
 	parsedURL := c.PrepareUrl(pathString)
-	result := sendbirdErrorResponse{}
+	result := SendbirdErrorResponse{}
 
 	err = c.deleteAndReturnJSON(parsedURL, "", &result)
 	if err != nil {
-		return sendbirdErrorResponse{}, err
+		return SendbirdErrorResponse{}, err
 	}
 
 	return result, nil
@@ -378,18 +378,18 @@ type ListMutedChannelsResponse struct {
 	//commonResponse
 }
 
-func (c *Client) MarkAllMessagesAsRead(userID string) (sendbirdErrorResponse, error) {
+func (c *Client) MarkAllMessagesAsRead(userID string) (SendbirdErrorResponse, error) {
 	pathString, err := templates.GetUsersTemplate(usersTemplateData{UserID: url.PathEscape(userID)}, templates.SendbirdURLUsersMarkReadAllWithUserID)
 	if err != nil {
-		return sendbirdErrorResponse{}, err
+		return SendbirdErrorResponse{}, err
 	}
 
 	parsedURL := c.PrepareUrl(pathString)
-	result := sendbirdErrorResponse{}
+	result := SendbirdErrorResponse{}
 
 	err = c.putAndReturnJSON(parsedURL, nil, &result)
 	if err != nil {
-		return sendbirdErrorResponse{}, err
+		return SendbirdErrorResponse{}, err
 	}
 
 	return result, nil
@@ -678,18 +678,18 @@ type GetPushPerferencesResponse struct {
 	TimeZone     string `json:"timezone,omitempty"`
 }
 
-func (c *Client) ResetPushPerferences(userID string) (sendbirdErrorResponse, error) {
+func (c *Client) ResetPushPerferences(userID string) (SendbirdErrorResponse, error) {
 	pathString, err := templates.GetUsersTemplate(usersTemplateData{UserID: url.PathEscape(userID)}, templates.SendbirdURLUsersPushPreferenceWithUserID)
 	if err != nil {
-		return sendbirdErrorResponse{}, err
+		return SendbirdErrorResponse{}, err
 	}
 
 	parsedURL := c.PrepareUrl(pathString)
-	result := sendbirdErrorResponse{}
+	result := SendbirdErrorResponse{}
 
 	err = c.deleteAndReturnJSON(parsedURL, "", &result)
 	if err != nil {
-		return sendbirdErrorResponse{}, err
+		return SendbirdErrorResponse{}, err
 	}
 
 	return result, nil

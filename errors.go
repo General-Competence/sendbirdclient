@@ -20,14 +20,14 @@ const (
 	SendbirdClientErrorUnsuppoertedWebhookCategory = "Unsupport webhook category."
 )
 
-type sendbirdErrorResponse struct {
+type SendbirdErrorResponse struct {
 	HasError bool   `json:"error"`
 	Message  string `json:"message"`
 	Code     int    `json:"code"`
 }
 
-//implement error interface
-func (s sendbirdErrorResponse) Error() string {
+// implement error interface
+func (s SendbirdErrorResponse) Error() string {
 	if s.Code != 200 && s.Code != 0 {
 		return fmt.Sprintf("SendbirdError: %d - %s", s.Code, s.Message) // or s.message or some kind of format
 	}
@@ -36,7 +36,7 @@ func (s sendbirdErrorResponse) Error() string {
 
 func CheckSendbirdError(httpResp *http.Response) error {
 	if httpResp.StatusCode != 200 {
-		errorMessageBody := sendbirdErrorResponse{}
+		errorMessageBody := SendbirdErrorResponse{}
 		err := json.NewDecoder(httpResp.Body).Decode(&errorMessageBody)
 		if err != nil {
 			return fmt.Errorf("CheckSendbirdError(): %s", err)

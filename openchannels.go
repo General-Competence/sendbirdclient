@@ -163,18 +163,18 @@ type ViewAnOpenChannelRequest struct {
 	Participants bool `json:"participants,omitempty"`
 }
 
-func (c *Client) DeleteAnOpenChannel(channelURL string) (sendbirdErrorResponse, error) {
+func (c *Client) DeleteAnOpenChannel(channelURL string) (SendbirdErrorResponse, error) {
 	pathString, err := templates.GetOpenChannelTemplate(openChannelsTemplateData{ChannelURL: url.PathEscape(channelURL)}, templates.SendbirdURLOpenChannelsWithChannelURL)
 	if err != nil {
-		return sendbirdErrorResponse{}, err
+		return SendbirdErrorResponse{}, err
 	}
 
 	parsedURL := c.PrepareUrl(pathString)
 
-	result := sendbirdErrorResponse{}
+	result := SendbirdErrorResponse{}
 
 	if err := c.deleteAndReturnJSON(parsedURL, "", &result); err != nil {
-		return sendbirdErrorResponse{}, err
+		return SendbirdErrorResponse{}, err
 	}
 
 	return result, nil
@@ -369,21 +369,21 @@ func (c *Client) ViewBanInOpenChannel(channelURL string, bannedUserID string) (B
 	return result, nil
 }
 
-func (c *Client) UnbanAUserInOpenChannel(channelURL string, bannedUserID string) (sendbirdErrorResponse, error) {
+func (c *Client) UnbanAUserInOpenChannel(channelURL string, bannedUserID string) (SendbirdErrorResponse, error) {
 	pathString, err := templates.GetOpenChannelTemplate(openChannelsTemplateData{
 		ChannelURL:   url.PathEscape(channelURL),
 		BannedUserID: url.PathEscape(bannedUserID),
 	}, templates.SendbirdURLOpenChannelsBanWithChannelURLandBannedUserID)
 	if err != nil {
-		return sendbirdErrorResponse{}, err
+		return SendbirdErrorResponse{}, err
 	}
 
 	parsedURL := c.PrepareUrl(pathString)
 
-	result := sendbirdErrorResponse{}
+	result := SendbirdErrorResponse{}
 
 	if err := c.deleteAndReturnJSON(parsedURL, "", &result); err != nil {
-		return sendbirdErrorResponse{}, err
+		return SendbirdErrorResponse{}, err
 	}
 
 	return result, nil
@@ -473,20 +473,20 @@ type ViewAMuteInOpenChannelResponse struct {
 	IsMuted bool `json:"is_muted"`
 }
 
-func (c *Client) UnmuteAUserInOpenChannel(channelURL string, mutedUserID string) (sendbirdErrorResponse, error) {
+func (c *Client) UnmuteAUserInOpenChannel(channelURL string, mutedUserID string) (SendbirdErrorResponse, error) {
 	pathString, err := templates.GetOpenChannelTemplate(openChannelsTemplateData{
 		ChannelURL:  url.PathEscape(channelURL),
 		MutedUserID: url.PathEscape(mutedUserID),
 	}, templates.SendbirdURLOpenChannelsMuteWithChannelURLandMutedUserID)
 	if err != nil {
-		return sendbirdErrorResponse{}, err
+		return SendbirdErrorResponse{}, err
 	}
 	parsedURL := c.PrepareUrl(pathString)
 
-	result := sendbirdErrorResponse{}
+	result := SendbirdErrorResponse{}
 
 	if err := c.deleteAndReturnJSON(parsedURL, "", &result); err != nil {
-		return sendbirdErrorResponse{}, err
+		return SendbirdErrorResponse{}, err
 	}
 
 	return result, nil
